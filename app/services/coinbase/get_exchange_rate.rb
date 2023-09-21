@@ -12,6 +12,10 @@ module Coinbase
     end
 
     def call
+      if @from_coin.blank? || @to_coin.blank?
+        return error_response('Se necesita la moneda de origen y la moneda a convertir')
+      end
+
       response = process_request
 
       parsed_response(response)
