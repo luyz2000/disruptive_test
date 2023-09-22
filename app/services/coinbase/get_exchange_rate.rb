@@ -7,12 +7,12 @@ module Coinbase
     require 'net/http'
 
     def initialize(params = {})
-      @from_coin = params[:from_coin]
+      @from_coin = params[:from_coin] || 'USD'
       @to_coin = params[:to_coin]
     end
 
     def call
-      if @from_coin.blank? || @to_coin.blank?
+      if from_coin.blank? || to_coin.blank?
         return error_response('Se necesita la moneda de origen y la moneda a convertir')
       end
 
@@ -31,7 +31,7 @@ module Coinbase
     private
 
     def request_url
-      @request_url ||= URI("https://rest.coinapi.io/v1/exchangerate/#{@from_coin}/#{@to_coin}")
+      @request_url ||= URI("https://rest.coinapi.io/v1/exchangerate/#{from_coin}/#{to_coin}")
     end
 
     def process_request
