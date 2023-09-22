@@ -1,0 +1,38 @@
+.container
+  .row.vh-100.align-items-center.justify-content-center
+    .col-6
+      %h1.h2.text-center Calcular inversion en criptomonedas
+      .card
+        .card-header
+          = form_tag "#", method: :get do
+            .row
+              .col-8
+                .input-group
+                  %span.input-group-text $
+                  = text_field_tag :usd_to_cotize, params[:usd_to_cotize], class: "form-control", placeholder: "Ingresa la cantidad de $ a calcular"
+                  %span.input-group-text USD
+              .col-4
+                = submit_tag "Consultar", class: "btn btn-success w-100"
+        .card-body.p-0
+          %table.table.table-hover.table-striped.mb-0
+            %thead
+              %tr
+                %th Moneda
+                %th Precio
+                %th Ganancia Anual
+                %th Ganancia Anual Compuesto
+            %tbody
+              - if @cotizaciones.present?
+                - @cotizaciones.each do |coin|
+                  %tr
+                    %td
+                      .d-flex
+                        = image_tag asset_path("ic_#{coin[:name]}.png"), style: "height: 45px; widht: 45px;",class: "d-inline"
+                        %p.d-inline.ms-2
+                          = coin[:name].capitalize
+                          %br
+                          = coin[:short_name]
+                    %td= number_to_currency(coin[:rate], precision: 10)
+                    %td= number_to_currency(coin[:rate] * 12, precision: 10)
+                    %td= number_to_currency(coin[:rate], precision: 10)
+                  
