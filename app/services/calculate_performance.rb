@@ -10,13 +10,18 @@ class CalculatePerformance < ApplicationService
       result = Coinbase::GetExchangeRate.new({ to_coin: coin[:short_name] }).call
       next unless result.success?
 
+      coin[:base_amount] = base_amount
       coin[:rate] = result.data
       coin[:rate_anual_gain] = calculate_performance(coin)
       coin[:rate_anual_gain_compound] = calculate_performance_compound(coin)
       coin
     end
     result.compact!
-    success_response(result)
+    if result.empty?
+      error_response('Too many requests - You have exceeded request limit for this specific API Key over last 24 hours. Limit is defined in the customer portal in the API Key configuration section. You can disable this limit for this API Key, increase limit value or reduce request rate.')
+    else
+      success_response(result)
+    end
   end
 
   private

@@ -1,8 +1,7 @@
 class VisitorController < ApplicationController
-  def index; end
+  def index
+    return unless params[:balance_to_invest].present?
 
-  def investment_calc
-    
-  
+    @cotizations = CalculatePerformance.new(params[:balance_to_invest]).call
   end
 end
