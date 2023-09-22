@@ -9,7 +9,7 @@
               .col-8
                 .input-group
                   %span.input-group-text $
-                  = text_field_tag :balance_to_invest, params[:balance_to_invest], class: "form-control", placeholder: "Ingresa la cantidad de $ a invertir"
+                  = text_field_tag :balance_to_invest, params[:balance_to_invest], class: "form-control", placeholder: "Ingresa la cantidad de $ a invertir", "data-action": "input->visitor#only_numbers", required: true
                   %span.input-group-text USD
               .col-4
                 = submit_tag "Consultar", class: "btn btn-success w-100", name: nil

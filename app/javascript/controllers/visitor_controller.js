@@ -66,4 +66,9 @@ export default class extends Controller {
       "Capital + Rendimiento Anual Compuesto": row.rate_anual_gain_compound,
     }));
   }
+
+  only_numbers(event) {
+    var input = event.currentTarget;
+    input.value = input.value.replace(/[^\d]+/g, "");
+  }
 }
