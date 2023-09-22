@@ -6,6 +6,9 @@ class CalculatePerformance < ApplicationService
   end
 
   def call
+    return error_response('El valor del monto a calcular no puede estar en blanco') if base_amount.blank?
+    return error_response('El valor del monto a calcular puede ser 0 o negativo') if base_amount <= 0
+
     result = Visitor::AVAILABLE_COINS.map do |coin|
       result = Coinbase::GetExchangeRate.new({ to_coin: coin[:short_name] }).call
       next unless result.success?
