@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
 Things you may want to cover:
 
-* Ruby version
+- Ruby version: 3.0.0
 
-* System dependencies
+- System dependencies: none
 
-* Configuration
+- Configuration: default port for localhost is 5000
 
-* Database creation
+- Database creation: not required
 
-* Database initialization
+- Database initialization: not required
 
-* How to run the test suite
+- How to run the test suite: using command rspec
 
-* Services (job queues, cache servers, search engines, etc.)
+- Services (job queues, cache servers, search engines, etc.): not required
 
-* Deployment instructions
-
-* ...
+- Deployment development mode instructions: foreman start
