@@ -10,11 +10,7 @@ class CalculatePerformance < ApplicationService
       result = Coinbase::GetExchangeRate.new({ to_coin: coin[:short_name] }).call
       next unless result.success?
 
-      coin[:base_amount] = base_amount
-      coin[:rate] = result.data
-      coin[:rate_anual_gain] = calculate_performance(coin)
-      coin[:rate_anual_gain_compound] = calculate_performance_compound(coin)
-      coin
+      build_hash(result.data, coin)
     end
     result.compact!
     if result.empty?
@@ -25,6 +21,14 @@ class CalculatePerformance < ApplicationService
   end
 
   private
+
+  def build_hash(rate, coin)
+    coin[:base_amount] = base_amount
+    coin[:rate] = rate
+    coin[:rate_anual_gain] = calculate_performance(coin)
+    coin[:rate_anual_gain_compound] = calculate_performance_compound(coin)
+    coin
+  end
 
   def calculate_performance(coin_hash)
     base_performance = coin_hash[:performance] * 12.0
